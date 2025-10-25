@@ -1,15 +1,20 @@
 "use client";
 
-/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 export function PublicGuard({ children }: { children: React.ReactNode }) {
   const { user } = useSelector((state: RootState) => state.auth);
 
-  if (localStorage.getItem("user") || user) {
-    window.location.href = "/dashboard";
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser || user) {
+        window.location.href = "/dashboard";
+      }
+    }
+  }, [user]);
 
   return <>{children}</>;
 }
