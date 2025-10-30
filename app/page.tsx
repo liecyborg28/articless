@@ -16,6 +16,8 @@ import {
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
+import { SunIcon, LinkIcon, TimeIcon } from "@chakra-ui/icons";
+
 const MotionText = motion(Text);
 
 export function HeroSection() {
@@ -106,6 +108,24 @@ export function HeroSection() {
 }
 
 export default function LandingPage() {
+  const features = [
+    {
+      title: "Smart Summarization",
+      desc: "Powered by advanced AI models to extract the most relevant points.",
+      icon: SunIcon,
+    },
+    {
+      title: "Multi-Source Support",
+      desc: "Paste raw text or simply provide an article link — we handle both.",
+      icon: LinkIcon,
+    },
+    {
+      title: "Instant & Accurate",
+      desc: "Get your summaries in seconds, with clean and accurate phrasing.",
+      icon: TimeIcon,
+    },
+  ];
+
   return (
     <Box bg="gray.50" minH="100vh">
       {/* HERO SECTION */}
@@ -130,21 +150,8 @@ export default function LandingPage() {
             </Heading>
           </motion.div>
 
-          <SimpleGrid columns={{ base: 1, md: 3 }} className="flex gap-8">
-            {[
-              {
-                title: "Smart Summarization",
-                desc: "Powered by advanced AI models to extract the most relevant points.",
-              },
-              {
-                title: "Multi-Source Support",
-                desc: "Paste raw text or simply provide an article link — we handle both.",
-              },
-              {
-                title: "Instant & Accurate",
-                desc: "Get your summaries in seconds, with clean and accurate phrasing.",
-              },
-            ].map((feature, i) => (
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
+            {features.map((feature, i) => (
               <Card.Root
                 key={i}
                 p={6}
@@ -152,15 +159,19 @@ export default function LandingPage() {
                 boxShadow="md"
                 bg="white"
                 transition="all 0.3s ease"
-                _hover={{
-                  transform: "translateY(-8px)",
-                  boxShadow: "lg",
-                }}>
+                _hover={{ transform: "translateY(-8px)", boxShadow: "lg" }}>
                 <CardBody>
-                  <VStack
-                    align="start"
-                    // spacing={3}
-                  >
+                  <VStack align="start" p={4}>
+                    <Box
+                      bg="blue.100"
+                      p={3}
+                      borderRadius="full"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center">
+                      <feature.icon boxSize={6} color="blue.500" />
+                    </Box>
+
                     <Text fontSize="xl" fontWeight="semibold" color="gray.800">
                       {feature.title}
                     </Text>
