@@ -4,14 +4,13 @@ import { ReactNode, createContext, useContext } from "react";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
-import { Toaster, toaster } from "@/components/ui/toaster"; // Pastikan path ini sesuai dengan struktur proyek Anda
+import ToasterClient from "@/components/ToasterClient"; // ✅ import
+import { toaster } from "@/components/ui/toaster";
 
-// Context untuk Toast
 const ToastContext = createContext({
   showToast: (options: Parameters<typeof toaster.create>[0]) => {},
 });
 
-// ToastProvider untuk menyediakan fungsi showToast
 function ToastProvider({ children }: { children: ReactNode }) {
   const showToast = (options: Parameters<typeof toaster.create>[0]) => {
     toaster.create(options);
@@ -20,28 +19,19 @@ function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
+      {/* ✅ Toaster client-only tetap di dalam ChakraProvider */}
+      <ToasterClient />
     </ToastContext.Provider>
   );
 }
 
-// Hook untuk menggunakan toast
-export const useAppToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error("useAppToast must be used within ToastProvider");
-  }
-  return context.showToast;
-};
+export const useAppToast = () => useContext(ToastContext).showToast;
 
-// Main Provider
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <Provider store={store}>
       <ChakraProvider value={defaultSystem}>
-        <ToastProvider>
-          <Toaster />
-          {children}
-        </ToastProvider>
+        <ToastProvider>{children}</ToastProvider>
       </ChakraProvider>
     </Provider>
   );
