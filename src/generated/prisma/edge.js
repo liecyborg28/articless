@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.18.0
- * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.18.0",
-  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -152,6 +152,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -159,12 +163,12 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.18.0",
-  "engineVersion": "34b5a692b7bd79939a9a2c3ef97d816e749cda2f",
+  "clientVersion": "6.14.0",
+  "engineVersion": "717184b7b35ea05dfa71a3236b7af656013e1e49",
   "datasourceNames": [
     "db"
   ],
@@ -178,8 +182,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String  @id @default(uuid())\n  email         String  @unique\n  password      String?\n  full_name     String?\n  photo_profile String?\n\n  histories History[] @relation(\"UserHistories\")\n\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n\nmodel History {\n  id      String @id @default(uuid())\n  user_id String\n  user    User   @relation(\"UserHistories\", fields: [user_id], references: [id])\n\n  text String\n\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "4dda9589c0f0c84ff89cfbdc4b276a4b6af7e445baf80c888fdf544acd4f02c7",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String  @id @default(uuid())\n  email         String  @unique\n  password      String?\n  full_name     String?\n  photo_profile String?\n\n  histories History[] @relation(\"UserHistories\")\n\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n\nmodel History {\n  id      String @id @default(uuid())\n  user_id String\n  user    User   @relation(\"UserHistories\", fields: [user_id], references: [id])\n\n  text String\n\n  created_at DateTime @default(now())\n  updated_at DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "7fc739bb91cce11d0d11a503848e21566b82817073e79f92a1f63f4c6e0a9ae4",
   "copyEngine": true
 }
 config.dirname = '/'
