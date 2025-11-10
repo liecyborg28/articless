@@ -112,7 +112,7 @@ export async function login(model: LoginModel) {
 }
 
 export async function resetPassword(model: ResetPasswordModel) {
-  const { data, error } = await supabase.auth.updateUser({
+  const { error } = await supabase.auth.updateUser({
     password: model.password,
   });
 
